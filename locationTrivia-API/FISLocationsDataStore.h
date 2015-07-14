@@ -13,4 +13,8 @@
 @property (strong, nonatomic) NSMutableArray *locations;
 + (instancetype)sharedLocationsDataStore;
 - (instancetype)init;
+- (void)getAllLocationsWithCompletion:(void (^)(BOOL))completionBlock;
+- (void)addNewLocationWithName:(NSString *)name latitude:(NSNumber *)latitude longitude:(NSNumber *)longitude withCompletion:(void (^)(BOOL))completionBlock;
+- (void)deleteLocationWithID:(NSNumber *)locationID withCompletion:(void (^)(BOOL))completionBlock;
+
 @end

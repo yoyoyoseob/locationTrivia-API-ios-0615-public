@@ -27,4 +27,12 @@
 {
     return [self initWithContent:@"" Likes:0];
 }
+
++(FISTrivia *)triviaFromDict:(NSDictionary *)trivium
+{
+    FISTrivia *newTrivia = [[FISTrivia alloc]init];
+    newTrivia.content = trivium[@"content"];
+    return newTrivia;
+}
+
 @end

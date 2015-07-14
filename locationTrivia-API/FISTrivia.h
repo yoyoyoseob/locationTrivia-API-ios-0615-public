@@ -13,6 +13,6 @@
 @property (strong, nonatomic) NSString *content;
 @property (nonatomic) NSInteger likes;
 
-
++(FISTrivia *)triviaFromDict:(NSDictionary *)trivium;
 - (id)initWithContent:(NSString *)content Likes:(NSInteger)likes;
 @end

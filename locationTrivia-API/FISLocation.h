@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSNumber *latitude;
 @property (strong, nonatomic) NSNumber *longitude;
+@property (strong, nonatomic) NSNumber *locationID;
 @property (strong, nonatomic) NSMutableArray *trivia;
 
 - (id) initWithName:(NSString *)name Latitude:(NSNumber *)latitude Longitude:(NSNumber *)longitude;
@@ -23,5 +24,7 @@
 - (FISTrivia *)topTrivia;
 
 -(NSString *)numberOfTriva;
+
++(FISLocation *)locationFromDictionary:(NSDictionary *)locationDict;
 
 @end

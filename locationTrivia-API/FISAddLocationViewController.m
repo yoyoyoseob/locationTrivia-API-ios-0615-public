@@ -25,12 +25,19 @@
 - (IBAction)saveLocation:(id)sender {
     FISLocationsDataStore *store;
     store = [FISLocationsDataStore sharedLocationsDataStore];
-    FISLocation *newLocation = [[FISLocation alloc]init];
-    newLocation.name = self.nameInput.text;
-    newLocation.latitude = @([self.latitudeInput.text floatValue]);
-    newLocation.longitude = @([self.longitudeInput.text floatValue]);
-    [store.locations addObject:newLocation];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [store addNewLocationWithName:self.nameInput.text latitude:(NSNumber *)self.latitudeInput.text longitude:(NSNumber *)self.longitudeInput.text withCompletion:^(BOOL added) {
+        if (added)
+            NSLog(@"Added new location");
+            [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+//    FISLocation *newLocation = [[FISLocation alloc]init];
+//    newLocation.name = self.nameInput.text;
+//    newLocation.latitude = @([self.latitudeInput.text floatValue]);
+//    newLocation.longitude = @([self.longitudeInput.text floatValue]);
+//    [store.locations addObject:newLocation];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

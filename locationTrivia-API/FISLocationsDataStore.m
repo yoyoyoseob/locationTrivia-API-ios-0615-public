@@ -7,9 +7,11 @@
 //
 
 #import "FISLocationsDataStore.h"
+#import <AFNetworking/AFNetworking.h>
+#import "FISLocationsAPIClient.h"
+#import "FISLocation.h"
 
 @implementation FISLocationsDataStore
-
 
 + (instancetype)sharedLocationsDataStore {
     static FISLocationsDataStore *_sharedLocationsDataStore = nil;
@@ -21,7 +23,6 @@
     return _sharedLocationsDataStore;
 }
 
-
 - (instancetype)init
 {
     self = [super init];
@@ -30,4 +31,33 @@
     }
     return self;
 }
+
+-(void)getAllLocationsWithCompletion:(void (^)(BOOL))completionBlock
+{
+    [FISLocationsAPIClient getLocationTriviaWithCompletion:^(NSArray *results) {
+        [self.locations removeAllObjects];
+        for (NSDictionary *locationDictionary in results)
+        {
+            [self.locations addObject:[FISLocation locationFromDictionary:locationDictionary]];
+        }
+        completionBlock(YES);
+    }];
+}
+
+-(void)addNewLocationWithName:(NSString *)name latitude:(NSNumber *)latitude longitude:(NSNumber *)longitude withCompletion:(void (^)(BOOL))completionBlock
+{
+    [FISLocationsAPIClient addLocationWithName:name latitude:latitude longitude:longitude withCompletion:^(BOOL added) {
+        NSLog(@"Successfully added");
+        completionBlock(YES);
+    }];
+}
+
+-(void)deleteLocationWithID:(NSNumber *)locationID withCompletion:(void (^)(BOOL))completionBlock
+{
+    [FISLocationsAPIClient deleteLocationWithID:locationID withCompletion:^(BOOL deleted) {
+        if (deleted)
+        completionBlock(YES);
+    }];
+}
+
 @end

@@ -74,6 +74,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell" forIndexPath:indexPath];
 
     FISTrivia *trivia = self.location.trivia[indexPath.row];
+    NSLog(@"%@", self.location.trivia);
     cell.textLabel.text = trivia.content;
 
     return cell;

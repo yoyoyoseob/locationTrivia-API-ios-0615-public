@@ -7,6 +7,7 @@
 //
 
 #import "FISLocation.h"
+#import "FISTrivia.h"
 
 @implementation FISLocation
 
@@ -67,7 +68,23 @@
 
 -(NSString *)numberOfTriva
 {
-    return [NSString stringWithFormat:@"%d", [self.trivia count]];
+    return [NSString stringWithFormat:@"%lu", [self.trivia count]];
+}
+
++(FISLocation *)locationFromDictionary:(NSDictionary *)locationDict
+{
+    FISLocation *newLocation = [[FISLocation alloc]init];
+    
+    newLocation.name = locationDict[@"name"];
+    newLocation.latitude = locationDict[@"latitude"];
+    newLocation.longitude = locationDict[@"longitude"];
+    newLocation.locationID = locationDict[@"id"];
+    
+    for (NSDictionary *trivium in locationDict[@"trivia"])
+    {
+        [newLocation.trivia addObject:[FISTrivia triviaFromDict:trivium]];
+    }
+    return newLocation;
 }
 
 @end
